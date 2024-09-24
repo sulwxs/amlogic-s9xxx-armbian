@@ -75,7 +75,7 @@ armbian_release_file="etc/armbian-release"
 ophub_release_file="etc/ophub-release"
 
 # U-BOOT files download repository
-uboot_repo="https://github.com/ophub/u-boot"
+uboot_repo="https://github.com/sulwxs/u-boot"
 # Firmware files download repository
 firmware_repo="https://github.com/ophub/firmware"
 
@@ -293,6 +293,7 @@ check_data() {
             grep -E "^[^#].*${board_list}$" | awk -F':' '{print $9}' |
             sort -u | xargs
     ))
+    process_msg "${kernel_from}"
     [[ "${#kernel_from[@]}" -eq 0 ]] && error_msg "Missing [ KERNEL_TAGS ] settings, stop building."
     # Replace custom kernel tags
     [[ -n "${kernel_usage}" ]] && {
