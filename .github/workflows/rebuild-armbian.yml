@@ -243,6 +243,7 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
+          echo "firstword=hello" >> $GITHUB_OUTPUT
           docker rmi $(docker images -q) 2>/dev/null
           [[ -n "${AGENT_TOOLSDIRECTORY}" ]] && sudo rm -rf "${AGENT_TOOLSDIRECTORY}"
           sudo rm -rf /usr/share/dotnet /etc/apt/sources.list.d /usr/local/lib/android 2>/dev/null
@@ -262,6 +263,7 @@ jobs:
 
       - name: Create simulated physical disk
         run: |
+          echo "firstword=hello" >> $GITHUB_OUTPUT
           mnt_size=$(expr $(df -h /mnt | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 1)
           root_size=$(expr $(df -h / | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 4)
           sudo truncate -s "${mnt_size}"G /mnt/mnt.img
@@ -282,6 +284,7 @@ jobs:
         id: down
         working-directory: /builder
         run: |
+          echo "firstword=hello4" >> $GITHUB_OUTPUT
           # Get the url of the rebuild armbian file
           armbian_url="${{ inputs.armbian_url }}"
           if  [[ -z "${armbian_url}" ]]; then
